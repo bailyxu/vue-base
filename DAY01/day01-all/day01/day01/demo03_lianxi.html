@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+
+
+<div id="example">
+    <table>
+        <thead>
+         <tr>
+             <th>姓名</th>
+             <th>成绩</th>
+             <th>性别</th>
+         </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{stuList[0].name}}</td>
+                <td>{{stuList[0].score}}</td>
+                <td>{{stuList[0].sex}}</td>
+            </tr>
+            <tr>
+                <td>{{stuList[1].name}}</td>
+                <td>{{stuList[1].score}}</td>
+                <td>{{stuList[1].sex}}</td>
+            </tr>
+            <tr>
+                <td>{{stuList[2].name}}</td>
+                <td>{{stuList[2].score}}</td>
+                <td>{{stuList[2].sex}}</td>
+            </tr>
+            <tr>
+                <td>{{stuList[3].name}}</td>
+                <td>{{stuList[3].score}}</td>
+                <td>{{stuList[3].sex}}</td>
+            </tr>
+            <tr>
+                <td>{{stuList[4].name}}</td>
+                <td>{{stuList[4].score}}</td>
+                <td>{{stuList[4].sex}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    new Vue({
+        el:'#example',
+        data:{
+            stuList:[
+                {score:80,sex:1,name:'Jack'},
+                {score:70,sex:1,name:'Lincoln'},
+                {score:50,sex:1,name:'Michael'},
+                {score:90,sex:0,name:'Rose'},
+                {score:100,sex:1,name:'John'}
+                ]
+        }
+    })
+</script>
+
+</body>
+</html>

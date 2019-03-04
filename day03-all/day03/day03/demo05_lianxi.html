@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <my-chatroom></my-chatroom>
+</div>
+
+<script>
+    //创建组件类
+    Vue.component('myChatroom',{
+        data:function(){
+            return {list:[]}
+        },
+        methods:{
+            rcvMsg:function(msg){
+                console.log("父组件接收到子组件传来的数据是:"+msg);
+                this.list.push(msg);
+            }
+        },
+        template:`
+            <div>
+              <ul>
+                <li v-for="tmp in list">
+                    {{tmp}}
+                </li>
+              </ul>
+             <my-input @sendEvent="rcvMsg" uname="lucy"></my-input>
+             <my-input @sendEvent="rcvMsg" uname="michael"></my-input>
+            </div>
+        `
+    })
+
+    Vue.component('myInput',{
+        props:['uname'],
+        data:function(){
+            return {inputMsg:''}
+        },
+        methods:{
+            sendToList:function(){
+               var msg = this.$refs.myMsg.value;
+               msg = this.uname+":"+msg;
+               this.$emit('sendEvent',msg);
+               this.inputMsg = "";
+            }
+        },
+        template:`<div>
+                <label>{{uname}}</label>
+                <input type="text"
+                v-model="inputMsg"
+                 ref="myMsg"/>
+                <button @click="sendToList">
+                    发送
+                </button>
+            </div>`
+    })
+
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

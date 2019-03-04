@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--1、引入对应的js文件-->
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <!--2、指定一个容器-->
+    <router-view></router-view>
+</div>
+
+<script>
+    //3、创建需要用到的组件类
+    var LoginComponent = Vue.component('login',{
+        template:`
+            <h2>这是登录页面</h2>
+        `
+    })
+
+    var RegisterComponent = Vue.component('register',{
+        template:`
+            <h2>这是注册页面</h2>
+        `
+    })
+
+    var NotFound = Vue.component('notFound',{
+        template:`
+            <h1>404 Page Not Found</h1>
+        `
+    })
+
+    //4、配置路由数组（路由词典）
+    const myRoutes = [
+        {path:'/',component:LoginComponent},
+        {path:'/login',component:LoginComponent},
+        {path:'/register',component:RegisterComponent},
+        {path:'*',component:NotFound}
+
+    ]
+
+    const myRouter = new VueRouter({
+        routes:myRoutes
+    })
+
+    new Vue({
+        router:myRouter,
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

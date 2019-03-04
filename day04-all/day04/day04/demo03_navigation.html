@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <!--引入对应的js文件-->
+    <script src="js/vue-router.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <!--指定容器-->
+    <router-view></router-view>
+</div>
+
+<script>
+    //创建要用到的各个组件类
+    var mySettings = Vue.component('settings',{
+        methods:{
+            jump:function(){
+                //js方式实现跳转
+                this.$router.push('/person');
+            }
+        },
+        template:`
+         <div>
+            <h1>这是设置页面</h1>
+            <button @click="jump">
+                查看个人信息
+            </button>
+        </div>
+        `
+    })
+
+   var myPerson =  Vue.component('person',{
+        template:`
+            <div>
+                <h2>这是个人中心页面</h2>
+                <router-link to="/set">
+                    去设置
+                </router-link>
+            </div>
+
+        `
+    })
+
+    //给当前Vue项目配置路由器，同时给路由器指定路由词典
+    const myRoutes = [
+        {path:'/',component:mySettings},
+        {path:'/set',component:mySettings},
+        {path:'/person',component:myPerson}
+    ];
+
+    const myRouter = new VueRouter({
+        routes:myRoutes
+    });
+
+    new Vue({
+        router:myRouter,
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

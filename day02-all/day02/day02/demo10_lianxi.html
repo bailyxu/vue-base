@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <my-header></my-header>
+</div>
+
+<script>
+    Vue.component('myHeader',{
+        data:function(){
+            return {opacityValue:0}
+        },
+        mounted:function(){
+            setInterval(()=>{
+                //修改透明度的值
+                this.opacityValue+=0.1;
+                if(this.opacityValue>1){
+                    this.opacityValue = 0;
+                }
+            },100);
+        },
+        template:`
+            <h1 :style="{opacity:opacityValue}">
+            it is a test
+            </h1>
+        `
+    })
+
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

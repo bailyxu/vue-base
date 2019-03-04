@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <p>{{uname}}</p>
+    <input type="text" v-model="uname"/>
+    <input type="number" v-model.number="num1"/>
+    <input type="number" v-model.number="num2"/>
+    <button @click="add">求和</button>
+</div>
+
+<script>
+    new Vue({
+        el: '#example',
+        data: {
+            num1:0,
+            num2:0,
+            uname:'zhangsan',
+            msg: 'Hello VueJS'
+        },
+        methods:{
+            add:function(){
+                //求和
+                var result = this.num1+this.num2;
+                console.log(result);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

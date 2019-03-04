@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <input type="checkbox" v-model="isUserAgree"/>
+    是否同意本站协议
+    <br>
+    <button :disabled="!isUserAgree">注册</button>
+</div>
+
+<script>
+    new Vue({
+        el: '#example',
+        data: {
+            isUserAgree:false,
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

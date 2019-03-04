@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <!--是否挂载到DOM-->
+    <p v-if="isMember">{{msg}}</p>
+    <!--改变display决定显示 隐藏-->
+    <p v-show="isMember">{{msg}}</p>
+    <div v-html="myHeader"> it is a container </div>
+    <div v-text="myHeader"> it is a container </div>
+</div>
+
+<script>
+    new Vue({
+        el: '#example',
+        data: {
+            isMember:false,
+            myHeader:"<h1> it is a header </h1>",
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

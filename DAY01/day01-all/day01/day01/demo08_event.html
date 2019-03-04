@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <p>{{count}}</p>
+    <!--写法1-->
+    <button v-on:click="handleClick">
+        clickMe
+    </button>
+    <!--写法2-->
+    <button @click="handleClick">
+        clickMe
+    </button>
+
+    <form @submit.prevent="handleSubmit">
+        <button>clickMe</button>
+    </form>
+
+</div>
+
+<script>
+    new Vue({
+        el: '#example',
+        data: {
+            count:1,
+            msg: 'Hello VueJS'
+        },
+        methods:{
+            handleSubmit:function(){
+                console.log('submit event is triggered');
+            },
+            handleClick:function(){
+                console.log("count is "+this.count);
+                this.count++;
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

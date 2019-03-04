@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <router-view></router-view>
+</div>
+
+<script>
+    /**
+     *  有个spa，login/mail 希望mail加载inbox、outbox
+     */
+    var myLogin = Vue.component('login',{
+        template:`
+            <div>
+                <h1>这是登录页面</h1>
+                <router-link to="/mail">
+                    登录到邮箱主页面
+                </router-link>
+            </div>
+        `
+    });
+
+    var myMail = Vue.component('mail',{
+        template:`
+            <div>
+                <h1>这是邮箱主页面</h1>
+                <router-link to="/inbox">
+                    收件箱
+                </router-link>
+                <router-link to="/outbox">
+                    发件箱
+                </router-link>
+                <router-view></router-view>
+            </div>
+        `
+    })
+
+    var myInbox = Vue.component('inbox',{
+        template:`
+            <ul>
+                <li>未读邮件1</li>
+                <li>未读邮件2</li>
+                <li>未读邮件3</li>
+            </ul>
+        `
+    })
+
+   var myOutbox =  Vue.component('outbox',{
+        template:`
+            <ul>
+                <li>已发邮件1</li>
+                <li>已发邮件2</li>
+                <li>已发邮件3</li>
+            </ul>
+        `
+    })
+
+    const myRoutes = [
+        {path:'/',component:myLogin},
+        {path:'/login',component:myLogin},
+        {
+            path:'/mail',
+            component:myMail,
+            children:[
+                {path:'/',component:myInbox},
+                {path:'/inbox',component:myInbox},
+                {path:'/outbox',component:myOutbox}
+            ]
+        }
+    ];
+
+    const myRouter = new VueRouter({
+        routes:myRoutes
+    })
+
+    new Vue({
+        router:myRouter,
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

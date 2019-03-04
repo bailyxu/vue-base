@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <table>
+        <thead>
+        <tr>
+            <th>姓名</th>
+            <th>成绩</th>
+            <th>性别</th>
+        </tr>
+        </thead>
+        <tbody>
+         <tr v-if="tmp.score > 60" v-for="tmp in stuList">
+             <td>{{tmp.name}}</td>
+             <td>{{tmp.score}}</td>
+             <td>{{tmp.sex}}</td>
+         </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS',
+            stuList:[
+                {score:80,sex:1,name:'Jack'},
+                {score:70,sex:1,name:'Lincoln'},
+                {score:50,sex:1,name:'Michael'},
+                {score:90,sex:0,name:'Rose'},
+                {score:100,sex:1,name:'John'}
+            ]
+        }
+    });
+</script>
+
+</body>
+</html>

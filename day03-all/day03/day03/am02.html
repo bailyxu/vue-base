@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/vue.js"></script>
+</head>
+<body>
+    <div id="example">
+        <my-father></my-father>
+    </div>
+    <script>
+        Vue.component('myFather',{
+            methods:{
+                rcvMsg:function (msg){console.log("父组件接收到的信息:"+msg);
+                }
+            },
+            template:`
+                <div>
+                <h1>这是父组件</h1>
+                </div>
+            `
+        })
+    </script>
+</body>
+</html>

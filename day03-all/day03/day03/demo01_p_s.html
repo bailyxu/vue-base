@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <my-father></my-father>
+</div>
+
+<script>
+    //父-》子
+    Vue.component('mySon',{
+        props:['sonName'],
+        template:`
+            <h3> 儿子的名字是{{sonName}}</h3>
+        `
+    });
+
+    Vue.component('myFather',{
+        template:`
+            <div>
+                <h1>这是父组件</h1>
+                <hr/>
+                <my-son sonName="张三"></my-son>
+            </div>
+        `
+    })
+
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

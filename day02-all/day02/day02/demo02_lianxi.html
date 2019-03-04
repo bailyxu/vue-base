@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <p v-change-background="'#00ff00'">{{msg}}</p>
+</div>
+
+<script>
+    //指令的创建
+    Vue.directive('changeBackground',{
+        bind:function(el,binding){
+            el.style.backgroundColor=binding.value;
+        }
+    });
+
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

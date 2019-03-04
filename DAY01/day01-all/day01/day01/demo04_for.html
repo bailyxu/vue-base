@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <p>{{msg}}</p>
+    <ul>
+        <li>{{list[0]}}</li>
+        <li>{{list[1]}}</li>
+        <li>{{list[2]}}</li>
+        <li>{{list[3]}}</li>
+        <li>{{list[4]}}</li>
+    </ul>
+    <ul>
+        <li v-for="tmp in list">
+            {{tmp}}
+        </li>
+    </ul>
+    <ul>
+        <li v-for="(value,index) in list">
+            {{"下标为"+index+" 值为"+value}}
+        </li>
+    </ul>
+</div>
+
+<script>
+    new Vue({
+        el:'#example',
+        data:{
+            msg:'Hello VueJS',
+            list:[100,200,300,400,500]
+        }
+    });
+</script>
+
+</body>
+</html>

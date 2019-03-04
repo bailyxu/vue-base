@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <router-view></router-view>
+</div>
+
+<script>
+    var myLogin = Vue.component('login',{
+        methods:{
+            jump:function(){
+                //通过js来跳转
+                this.$router.push('/index');
+            }
+        },
+        template:`
+            <div>
+                <h1>这是登录页面</h1>
+                <button @click="jump">登录</button>
+            </div>
+        `
+    })
+    var myIndex = Vue.component('index',{
+        template:`
+            <div>
+                <h1>这是首页面</h1>
+                <router-link to="/login">
+                    退出登录
+                </router-link>
+            </div>
+        `
+    })
+    var notFound = Vue.component('notFound',{
+        data:function(){
+            return {
+                count:5,
+                timer:null
+            }
+        },
+        mounted:function(){
+            this.timer = setInterval(()=>{
+                console.log(this.count);
+                this.count--;
+                if(this.count==1){
+                    this.$router.push('/login');
+                }
+            },1000);
+        },
+        beforeDestroy:function(){
+            clearInterval(this.timer);
+            this.timer = null;
+        },
+        template:`
+            <div>
+                <h1>404,page not found</h1>
+                <p>{{count}}s自动返回上一页</p>
+            </div>
+        `
+    })
+
+    const myRoutes = [
+        {path:'/',component:myLogin},
+        {path:'/login',component:myLogin},
+        {path:'/index',component:myIndex},
+        {path:'*',component:notFound}
+    ]
+    const myRouter = new VueRouter({
+        routes:myRoutes
+    })
+
+    new Vue({
+        router:myRouter,
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

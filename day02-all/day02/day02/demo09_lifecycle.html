@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <my-hello></my-hello>
+</div>
+
+<script>
+    Vue.component('myHello',{
+        data:function(){
+            return {isShow:true}
+        },
+        mounted:function(){
+            setTimeout(()=>{
+                this.isShow = false;
+            },3000);
+        },
+        template:`
+            <my-test v-if="isShow"></my-test>
+        `
+    })
+
+    //创建组件
+    Vue.component('myTest',{
+        beforeCreate:function(){
+            console.log('组件准备创建中');
+        },
+        created:function(){
+            console.log('组件创建完毕');
+        },
+        beforeMount:function(){
+            console.log('挂载前');
+        },
+        mounted:function(){
+            console.log('挂载后');
+        },
+        beforeUpdate:function(){
+            console.log('数据准备更新');
+        },
+        updated:function(){
+            console.log('数据更新完成');
+        },
+        beforeDestroy:function(){
+            console.log('准备销毁');
+        },
+        destroyed:function(){
+            console.log('销毁完成');
+        },
+        data:function(){
+            return {count:1}
+        },
+        methods:{
+            handleClick:function(){
+                this.count++;
+            }
+        },
+        template:`
+            <div>
+                <p>{{count}}</p>
+                <button @click="handleClick">
+                 clickMe
+                </button>
+            </div>
+        `
+    })
+
+
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

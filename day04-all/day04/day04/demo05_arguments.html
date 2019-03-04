@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <router-view></router-view>
+</div>
+
+<script>
+    var myCart = Vue.component('cart',{
+        methods:{
+            jump:function(){
+                //push参数是 要跳转到目的地的路由地址
+                this.$router.push('/oc/100')
+            }
+        },
+        template:`
+            <div>
+                <h1>这是购物车页面</h1>
+                <button @click="jump">
+                    去结算
+                </button>
+                <router-link to="/oc/123">
+                    去结算
+                </router-link>
+            </div>
+        `
+    })
+    var myOC = Vue.component('orderConfirm',{
+        data:function(){
+            return {productPrice:0}
+        },
+        //在组件挂载完毕之后，读取通过路由传递来的参数
+        mounted:function(){
+            console.log(this.$route.params.price);
+            this.productPrice =
+                this.$route.params.price;
+        },
+        template:`
+            <div>
+                <h1>这是订单确认页面</h1>
+                <p>{{"商品价格为"+productPrice}}</p>
+            </div>
+        `
+    })
+
+    const myRoutes = [
+        {path:'/',component:myCart},
+        {path:'/cart',component:myCart},
+        {path:'/oc/:price',component:myOC}
+    ];
+
+    const myRouter = new VueRouter({
+        routes:myRoutes
+    })
+
+    new Vue({
+        router:myRouter,
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

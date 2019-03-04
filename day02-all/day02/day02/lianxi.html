@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+    <style>
+        .myBG{
+            background-color: blue;
+        }
+    </style>
+</head>
+<body>
+    <div id="example">
+        <button :class="{myBG:nowPage==tmp}"
+                @click="handleClick(tmp)"
+                v-for="tmp in pageList">
+            {{tmp}}
+        </button>
+    </div>
+
+    <script>
+        //el data methods
+        new Vue({
+            el:'#example',
+            data:{
+                msg:'it is a message',
+                nowPage:1,
+                pageList:[1,2,3,4,5]
+            },
+            methods:{
+                //修改nowPage的值为当前点击时的页码
+                handleClick:function(page){
+                    this.nowPage = page;
+                }
+            }
+        });
+    </script>
+
+</body>
+</html>
+
+
+

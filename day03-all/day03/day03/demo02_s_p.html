@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <my-father></my-father>
+</div>
+
+<script>
+    // 子组件给父组件传递参数
+    Vue.component('myFather',{
+        methods:{
+            rcvMsg:function(msg){
+                 console.log('父组件接收到数据了！'+msg);
+            }
+        },
+        template:`
+            <div>
+                <h1>这是父组件</h1>
+                <hr/>
+                <my-son @myEvent="rcvMsg">
+                </my-son>
+            </div>
+        `
+    })
+    Vue.component('mySon',{
+        data:function(){
+            return {msg:'hello father!'}
+        },
+        methods:{
+            handleClick:function(){
+                //通过触发事件的发送数据给父组件
+                this.$emit('myEvent',this.msg);
+            }
+        },
+        template:`
+            <div>
+                <h1>这是子组件</h1>
+                <button @click="handleClick">
+                    clickMe
+                </button>
+            </div>
+        `
+    })
+
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

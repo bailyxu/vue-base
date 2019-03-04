@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <ul>
+        <li v-for="tmp in list">{{tmp}}</li>
+    </ul>
+    <button @click="loadMore">加载更多</button>
+</div>
+
+<script>
+    new Vue({
+        el: '#example',
+        data: {
+            list:[100,200,300]
+        },
+        methods:{
+            loadMore:function(){
+                //向无序列表中追加一个元素
+                var num = Math.floor(Math.random()*10);
+                this.list.push(num);
+            }
+        }
+    });
+</script>
+
+</body>
+</html>

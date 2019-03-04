@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <father></father>
+</div>
+
+<script>
+    Vue.component('father',{
+        data:function(){
+            return {comName:'xiaotoubaba'}
+        },
+        methods:{
+            handleClick:function(){
+                //在父组件中准备通过ref得到子组件被调用时的实例
+                //this.$refs.mySon.sonName
+                console.log(this.$refs.mySon.sonName);
+            }
+        },
+        template:`<div>
+                <h1>这是父组件</h1>
+                <button @click="handleClick">
+                    clickMe
+                </button>
+                <hr/>
+                <son ref="mySon"></son>
+            </div>`
+    })
+    Vue.component('son',{
+        mounted:function(){
+            //在子组件挂载之后，读取父组件中的数据
+            console.log("子组件拿到父组件的数据是"+this.$parent.comName);
+        },
+        data:function(){
+            return {sonName:'testName'}
+        },
+        template:`<div>
+                <h1>这是子组件</h1>
+            </div>`
+    })
+
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

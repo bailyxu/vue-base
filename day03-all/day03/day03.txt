@@ -1,0 +1,99 @@
+一、组件间通信
+ 1、父组件与子组件通信(通过属性)
+   ①发送 
+        通过属性将发送的数据传递给子组件
+	<son myProp="123"></son>
+   ②接收
+	Vue.component('son',{
+	  //①解析该组件被调用时myProp属性对应的值②同时创建了一个myProp的变量保存上一步的值
+	  props:['myProp']，
+	  //myProp
+	})
+ 
+ 2、子组件 与 父组件的通信（通过事件）
+  2.1 接收方负责绑定 
+  rcvMsg:function(msg){//msg就是子组件在触发事件时传递来的数据}
+  <son @myEvent="rcvMsg"></son>
+  
+  2.2发送方负责触发 this.$emit('myEvent',123)
+  
+   练习：要求实现一个登录窗口的组件类(demo03_lianxi.html)
+	 创建3个组件类 来实现需求
+	 myInput myButton myLogin
+
+	 ①父-》子
+	 ②子-》父
+	 希望登录和注册按钮分别按下时，能够将'登录成功'/'注册成功'发给父组件，父组件解析到之后，在控制台打印即可
+	  ①绑定事件及对应的处理函数(@)
+	  ②触发绑定的事件并发送数据($emit)
+
+
+ 3、ref $parent
+  3.1 ref
+   ref(reference 引用/起了个外号)
+   使用场景：子与父的通信(主动权在父组件，随时可以通过ref找到子组件的实例)
+   基本使用步骤：
+   ① <any ref='mySon'></any>
+   ② this.$refs.mySon
+  3.2 $parent
+   可以在子组件中，通过this.$parent直接得到父组件的实例对象。
+   帮助实现父与子的通信
+
+
+ 综合练习：组件间通信
+  myChatroom:myInput*2 + ul 
+  myInput:label+input+btn
+  功能：通过props down,events up来实现父子组件之间的相互通信
+
+  父组件定义一个数组用来保存子组件传来的数据，同时将数组通过v-for绑定到列表
+  ①组件的创建和使用
+  ②父--》子
+   prop props:[] 
+  ③子--》父
+   @event this.$emit('event',123)
+  ④ push v-for
+
+ 4、兄弟组件间通信
+   ①创建bus
+     var bus = new Vue();
+   ②绑定事件
+     bus.$on('eventName',function(msg){})
+   ③触发事件
+     bus.$emit('eventName',123)
+
+     在demo06_bus.html 实现功能：
+     当熊二接收到熊大发来的数据，回复熊大：‘熊二已经收到’
+
+     熊二(发送 触发事件) --》 熊大（接收 绑定事件）
+
+ 组件间通信小结：
+  ①props down 通过属性传递值 实现父与子的通信
+  ②events up 通过触发事件传递值 实现子与父的通信
+  ③ref 通过指定引用名称，可以this.$refs来实现 子与父的通信
+  ④$parent 通过this.$parent找到父组件的实例对象，实现父与子的通信
+  ⑤bus ,借助于事件总线的概念，通过事件的绑定和触发，来实现兄弟组件间通信
+
+
+二、组件的实现方式
+ ①单文件组件 single file component
+ ②Vue.component('',{
+   template:``
+ })
+ ③通过script指定模板
+    ①创建一个script，指定id=‘myId’
+     type='text/x-template';在script标签内部去写要渲染的模板内容
+    ②在组件指定模板 template:'#myId'
+
+ 练习：
+ 要求实现todobox练习中add功能：在点击todoinput中的add按钮时，将输入框中的数据 发送给 todolist
+
+ 步骤：
+  1、实现兄弟组件间通信
+   bus的创建、
+   在接收方负责事件的绑定、
+   在发送方法负责事件的接收
+  2、todolist要动态的创建多个todoitem，同时给todoitem传递它应该显示的内容
+    ①todolist定义一个数组，在每次接收到数据插入到数组
+    ②将数组通过v-for给todoitem
+    ③在创建todoitem实现父与子的通信
+

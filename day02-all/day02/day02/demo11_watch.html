@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+  <my-component></my-component>
+</div>
+
+<script>
+    Vue.component('myComponent',{
+        data:function(){
+            return {uAddr:''}
+        },
+        watch:{
+            uAddr:function(newValue,oldValue){
+                console.log(newValue,oldValue);
+                //console.log(this.uAddr);
+            }
+        },
+        template:`
+            <input type="text"
+            v-model="uAddr"
+            placeholder="you are being watched"/>
+        `
+    });
+
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

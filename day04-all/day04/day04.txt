@@ -1,0 +1,108 @@
+Vue实现SPA的方式
+
+1、SPA
+ single page application 单一页面应用程序
+
+ SPA的工作方式（工作原理）：
+ ①解析地址栏中的完整路径和路由地址
+ ②请求完整路径对应的页面
+ ③解析路由地址，找到该路由地址所设置好的要加载的内容，发起请求
+ ④将请求到的代码片段插入到完整的页面
+
+2、通过Vue实现一个SPA的基本步骤
+    Vue是一个渐进式的js框架.
+   ①引入对应的文件 vue.js    vue-router.js
+   ②指定容器 routerView
+    <router-view></router-view>
+   ③创建当前SPA需要用到的组件类
+   ④配置路由数组
+     const myRoutes = [
+	{path:'',component:***},
+	{path:'/login',component:LoginCom}
+     ];
+
+     const myRouter = new VueRouter({
+      routes:myRoutes
+     })
+
+     new Vue({
+      router:myRouter
+     })
+   ⑤测试
+    保证每一个路由地址都能够按照我们的配置 加载正确的组件到指定的容器中
+
+   练习时间：demo02_lianxi.html
+    使用VueRouter来创建一个SPA，这个SPA有两个组件类，一个register,一个login
+    默认访问登录
+    /register --> 注册页组件类
+    /login  --> 登录页组件类
+
+   补充：路由匹配规则
+    在配置路由数组的时候，首先设置路由地址为空的处理，
+    {path:'/',component:**}
+    其次设置路由地址为有效值的处理
+    {path:'/login',component:**}
+    最后设置路由地址为异常时的处理
+    {path:'*',component:NotFound}
+
+3、SPA如何跳转
+   ①直接修改地址栏 --》 只适合开发人员使用
+   ②js
+     this.$router.push('目的地的路由地址');
+   ③超链接
+    <router-link to='/set'>返回</router-link>
+   ④$router.go
+    this.$router.go(step);
+    step是一个整数，为正数前进，负数就是后退
+
+    练习：demo04_lianxi.html
+     创建一个SPA，在该单页面应用程序中有3个组件，分别是login/index/notFound
+     
+     默认访问login，按钮--》index
+     index中有一个routerLink，点击-》login ，同时，当路由地址不存在时，访问notFound，在notFound加载时，显示一个（5s自动返回login）
+
+4、SPA跳转并传参
+   目的：从一个组件 跳转到另一个组件时，完成数据的传输
+
+	demo:实现一个SPA，包含两个组件，分别是cart/orderConfirm，点击cart中去结算按钮时，跳转到orderConfirm，同时将金额100传递过去，orderCOnfirm接收到参数并显示
+
+   具体实现方式：
+   ①明确发送方 接收方
+   ②配置接收方的路由地址
+    /oc --> /oc/:myPrice
+    this.$route.params.myPrice
+   ③跳转的同时发送数据
+    this.$router.push('/oc/100')
+    this.$router.push('/oc/'+this.price)
+    <router-link to='/oc/100'>
+    </router-link>
+    <router-link :to="'/oc/'+price">
+    </router-link>
+
+   综合练习：
+	demo06_lianxi.html
+	有3个组件类，分别是check(默认：商品查看)，pay(商品支付),send(商品发货).
+	①check 按钮，点击跳转到pay，同时发送参数:商品id 10
+	②pay接收到参数显示在h2，routerLink点击时能够跳转到send
+	③send routerLink 跳转到check
+	
+5、路由嵌套
+   在一个SPA中的某一个路由对应的组件中，根据不同的路由地址，可以加载其它的组件到当前的组件，称作为路由嵌套
+   在SPA，A组件，希望能够嵌套B或者C 
+   ①给A组件添加一个容器
+     router-view
+   ② 配置子路由数组
+     const myRoutes = [
+       {
+	path:'/a',
+	component:A,
+	children:[
+	  //路由数组
+	]
+       }
+     ]
+
+
+练习：
+	路由嵌套
+	实现一个SPA，cart/orderConfirm,希望在orderConfirm去嵌套step1\step2\step3

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <script src="js/vue-resource.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <router-view></router-view>
+</div>
+
+<script>
+   var myList = Vue.component('list',{
+       data:function(){
+           return {productList:[]}
+       },
+       mounted:function(){
+           this.$http.get('http://localhost/admin/data/product_list.php')
+               .then((response)=>{
+               console.log(response.data);
+               this.productList = response.data.data;
+               })
+       },
+       template:`
+        <ul>
+            <li v-for="tmp in productList">
+                <router-link :to="'/detail/'+tmp.lid">
+                    {{tmp.title}}
+                </router-link>
+            </li>
+        </ul>
+       `
+   })
+
+   var myDetail = Vue.component('detail',{
+       template:`
+        <p>
+        在商品详情页中 参数id是{{this.$route.params.id}}
+        </p>
+       `
+   })
+   const myRoutes = [
+       {path:'/',component:myList},
+       {path:'/list',component:myList},
+       {path:'/detail/:id',component:myDetail},
+   ]
+
+   const myRouter = new VueRouter({
+       routes:myRoutes
+   })
+
+    new Vue({
+        router:myRouter,
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

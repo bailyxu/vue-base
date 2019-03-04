@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+    <style>
+        .myRed{
+            color:red
+        }
+    </style>
+</head>
+<body>
+<div id="example">
+    <!--动态样式绑定-->
+    <!-- 将变量的值 绑定到p的背景色样式-->
+    <p :style="{backgroundColor:myBGColor}">
+        it is a paragraph
+    </p>
+
+    <!--动态样式类绑定-->
+    <h1 :class="{myRed:false}">
+        it is a header
+    </h1>
+</div>
+
+<script>
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS',
+            myBGColor:'#ff0000'
+        }
+    });
+</script>
+
+</body>
+</html>

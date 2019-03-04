@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <script src="js/vue-router.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <router-view></router-view>
+</div>
+
+<script>
+    var myCheck = Vue.component('check',{
+        methods:{
+            jump:function(){
+                this.$router.push('/pay/10');
+            }
+        },
+        template:`
+            <div>
+                <h1>这是商品查看</h1>
+                 <button @click="jump">
+                    去支付
+                 </button>
+            </div>
+        `
+    })
+    var myPay = Vue.component('pay',{
+        data:function(){
+            return {uid:0}
+        },
+        mounted:function(){
+            //接收通过路由传递来的参数
+            console.log(this.$route.params.id);
+            this.uid = this.$route.params.id;
+        },
+        template:`
+            <div>
+                <h1>这是支付页面</h1>
+                <h2>{{"用户id是"+uid}}</h2>
+                <router-link to="/send">
+                    去发货
+                </router-link>
+            </div>
+        `
+    })
+    var mySend = Vue.component('send',{
+        methods:{
+            back:function(){
+                this.$router.go(-1);
+            }
+        },
+        template:`
+            <div>
+                <h1>发货页面</h1>
+                <button @click="back">
+                    返回上一页
+                </button>
+                <router-link to="/check">
+                    查看商品
+                </router-link>
+            </div>
+        `
+    })
+
+    const myRoutes = [
+        {path:'/',component:myCheck},
+        {path:'/check',component:myCheck},
+        {path:'/pay/:id',component:myPay},
+        {path:'/send',component:mySend},
+    ]
+    const myRouter = new VueRouter({
+        routes:myRoutes
+    });
+
+    new Vue({
+        router:myRouter,
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

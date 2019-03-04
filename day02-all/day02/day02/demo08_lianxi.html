@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <ul>
+        <li v-for="tmp in sexList">
+            {{tmp | change(false)}}
+        </li>
+    </ul>
+</div>
+
+<script>
+    //创建过滤器
+    Vue.filter('change',function(value,arg1){
+        //1 -》男  0-》女
+        if(value == 1){
+            if(arg1){
+                return '男'
+            }
+            else{
+                return 'boy'
+            }
+
+        }
+        else{
+            if(arg1){
+                return '女'
+            }
+            else{
+                return 'girl'
+            }
+
+        }
+    });
+
+    new Vue({
+        el: '#example',
+        data: {
+            sexList:[1,1,0],
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

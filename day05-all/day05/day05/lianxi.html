@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <!--引入路由模块所需要的js文件-->
+    <script src="js/vue-router.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <!--指定盛放组件的容器-->
+    <router-view></router-view>
+</div>
+
+<script>
+    //创建所需要用的组件类
+    var myCart = Vue.component('cart',{
+        template:`
+            <div>
+                <h1>这是购物车页面</h1>
+                <router-link to="/oc">
+                    去结算
+                </router-link>
+            </div>
+        `
+    })
+    var myOC = Vue.component('orderConfirm',{
+        template:`
+            <div>
+                <h1>这是订单确认页面</h1>
+                <router-link to="/step1">
+                    第一步
+                </router-link>
+                <router-link to="/step2">
+                    第二步
+                </router-link>
+                <router-link to="/step3">
+                    第三步
+                </router-link>
+                <router-view></router-view>
+            </div>
+        `
+    })
+
+    var myStep1 = Vue.component('step1',{
+        template:`
+         <h2>这是订单确认的第一步</h2>
+        `
+    })
+    var myStep2 = Vue.component('step2',{
+        template:`
+         <h2>这是订单确认的第2步</h2>
+        `
+    })
+    var myStep3 = Vue.component('step3',{
+        template:`
+         <h2>这是订单确认的第3步</h2>
+        `
+    })
+
+    //路由数组的创建和使用
+    const myRoutes = [
+        {path:'/',component:myCart},
+        {path:'/cart',component:myCart},
+        {
+            path:'/oc',
+            component:myOC,
+            children:[
+                {path:'/',component:myStep1},
+                {path:'/step1',component:myStep1},
+                {path:'/step2',component:myStep2},
+                {path:'/step3',component:myStep3},
+            ]
+        }
+    ];
+    const myRouter = new VueRouter({
+        routes:myRoutes
+    })
+
+    new Vue({
+        router:myRouter,
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

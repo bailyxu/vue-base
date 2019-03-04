@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <my-list>
+    </my-list>
+</div>
+
+<script>
+    //所有的组建类都是Vue的实例
+    Vue.component('myList',{
+        data:function(){
+            return {
+                list:['test01','test02','test03']
+            }
+        },
+        template:`
+            <ul>
+                <li v-for="tmp in list">{{tmp}}</li>
+            </ul>
+        `
+    })
+
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

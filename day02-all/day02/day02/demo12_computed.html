@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <ul>
+        <li v-for="tmp in list">
+            <p>{{myFunc()}}</p>
+            <p>{{myComputed}}</p>
+        </li>
+    </ul>
+</div>
+
+<script>
+    new Vue({
+        el: '#example',
+        computed:{
+            myComputed:function(){
+                console.log('计算属性被调用了');
+                return this.count;
+            }
+        },
+        methods:{
+            myFunc:function(){
+                console.log('func is called');
+                return this.count;
+            }
+        },
+        data: {
+            msg: 'Hello VueJS',
+            count:0,
+            list:[100,200,300]
+        }
+    });
+</script>
+
+</body>
+</html>

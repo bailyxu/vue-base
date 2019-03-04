@@ -1,0 +1,145 @@
+一、自定义指令
+ 指令：为了扩展html的功能，提供扩展语法，比如支持循环、选择、绑定。。
+ 创建一个和本身业务相关的指令。
+
+ 1、创建和使用
+  1.1 创建
+   Vue.directive('test',{
+	bind:function(){},
+	update:function(){},
+	unbind:function(){}
+   })
+  1.2 使用
+    <any v-test></any>
+
+ 2、谁调用了指令、传递什么参数
+    钩子函数的参数:
+     el:调用指定的元素
+     binding:value 参数
+   练习：demo02_lianxi.html
+    实现一个指令 v-change
+    功能：将调用v-change指令的标签的背景色设置为v-change指令传递的参数
+
+ 3、注意事项
+   change --> v-change
+
+   指令在定义建议：小驼峰式命名方式
+    changeBackground
+   指定在调用要求：烤串式命名方式
+    v-change-background
+
+二、组件 Component
+ 组件：可被反复使用的，带有特定功能的视图
+ 1、组件的创建和使用
+   创建
+    Vue.component('testComponent',{
+       template:'<h1>test</h1>'
+     })
+   使用:
+    <test-component></test-component>
+ 2、注意事项
+  ①组件的模板内容不能同时渲染多个元素，将多个元素放到一个顶层标签中
+  ②组件的模板中是可以 行，用反引号
+  ③建议组件类的命名符合小驼峰，调用组件类的名称时符合烤串式
+  ④在组件类中 定义变量时要放在data属性，而data属性对应的值 是一个有返回值(对象)的方法
+   Vue.component('myTest',{
+     data:function(){
+      return {count:1}
+     }
+   })
+
+ 练习：demo04_lianxi.html
+  创建组件类 myList,要求在myList组件类渲染一个有3个列表项的无序列表
+ 3、复合组件
+  复合组件就是一个普通的组件，可以调用其它的组件
+ 练习：
+  demo06_lianxi.html 通过组件化的方式实现一个登录窗口
+
+
+三、自定义过滤器
+  过滤器：将数据更好的呈现给用户
+  过滤器的本质是一个带有参数 带有返回值的方法
+
+  vue2.0 官方已经不再支持内置过滤器，但是支持自定义过滤器。
+
+  1、过滤器的创建和使用
+   Vue.filter('currency',
+   function(value){
+     //针对数据 根据业务 做处理
+     return '处理后的结果'
+   })
+
+   <any>
+     {{expression | currency}}
+   </any>
+
+  2、过滤器指定参数
+    Vue.filter(
+     'myFilter',
+     function(value,arg1,arg2){
+      //value是调用过滤器时通过管道传递来的表达式执行的结果
+      //arg1\arg2 调用过滤器括号中参数
+     })
+     <any>{{expression | myFilter(1,2)}}</any>
+ (:- 15:40)
+  练习：demo08_lianxi.html
+  现在有一个性别构成的数组
+  sexList:[1,1,0]
+  渲染在无序列表 男、男、女
+
+  ①创建一个过滤器 
+  ②在渲染数组到列表 调用过滤器
+
+
+四、生命周期
+ Vue组件的生命周期可以分为4个阶段
+  create:初始化
+  mount：在组件挂载前后
+  update：数据发生变化 判断
+  destroy：清理工作
+
+ before**
+ **ed
+
+ 练习：demo10_lianxi.html(:-17:00 )
+ 创建一个组件类，渲染一个h1的标签 
+ 在组件挂载之后，启动一个周期性定时器，将h1的透明度 0 0.1 0.2 --1  0 0.1  -1
+
+  ①组件的创建和使用
+  ②生命周期处理函数的使用
+  ③动态样式的绑定
+ h1 :style='{opacity:}'
+
+五、组件中常见属性
+data/methods/template/watch/computed
+
+ 1、watch: 监听属性，可以监听数据		的变化 让执行指定的处理函		数
+	 使用步骤：
+	  ①完成双向数据绑定的指令
+	   v-model='uname'
+	  ②指定监听的过程
+	   Vue.component('',{
+	     watch:{
+	       uname:function(newValue,oldValue){}
+	     }
+	   })
+
+ 2、computed 计算属性
+   用途：任何复杂的业务逻辑
+   特征：计算属性是基于它们的依赖进行缓存的。计算属性只有在它的相关依赖发生改变时才会重新求值
+
+   创建一个计算属性:
+    Vue.component('',{
+      computed:{
+        myComputed:function(){
+	  return this.**
+	}
+      }
+    })
+
+    如何调用:
+    {{myComputed}}
+
+每日一练：
+	
+	

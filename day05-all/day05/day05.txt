@@ -1,0 +1,72 @@
+一、完成与远程服务器端通信
+ 实现步骤：
+ ①引入vue-resource.js
+ ② this.$http.get().then((response)=>{
+   //response.data
+ })
+
+ 练习：demo02_lianxi.html(:-11:05)
+  创建一个SPA，该SPA有两个组件类，分别是list/detail,希望list中加载服务器端的商品列表(只显示标题)，点击列表项跳转到detail，同时将商品id发送给detail（接受的参数显示在p）
+
+  ①list发送 detail接收方
+  ②配置detail的路由地址
+
+
+  ①将admin.rar统一放到c:/xampp/htdocs
+  ②将admin.rar解压缩到admin文件夹
+  ③找到admin文件夹中xz.sql，点击右键通过editplus打开
+  ④全部选中并赋值xz.sql中所有的内容
+  ⑤启动xampp集成apache和mysql
+  ⑥点击mysql这一行的admin按钮
+  ⑦选中localhost/phpmyadmin网页中的sql标签页
+  ⑧将拷贝的sql语言，粘贴，执行
+
+  
+
+
+二、基于CLI方式来使用Vue（项目准备）
+  npm? node package manager 包管理器（安装nodejs时附带的工具）
+  npm install 查找当前指令执行时所在的目录中package.json,根据dependices和devDepenedices安装所有的依赖
+  npm **
+
+ production 生产环境
+ develop 开发环境
+ hot reload 热更新 
+
+ 1、准备工作
+  ①将tpls.zip拷贝到c:/xampp/htdocs/framwork/vue/project
+  ②将tpls.zip解压缩到当前文件夹
+  ③进入tpls目录
+  ④同时按下shift和鼠标右键，选择在此处打开命令行窗口
+  ⑤cpm install
+  ⑥等安装了所有依赖之后 npm start
+ 2、目录结构
+  ①build 开发服务器相关的设置、webpack
+  ②node_modules 存储的是通过npm install安装的所有的依赖
+  ③src存储的开发人员编写代码、项目所需要用到的资源文件 assets存储资源文件（图片、css、js） components组件 router/index.js完成路由的设置 app.vue 根组件 main.js 主文件
+  ④package.json
+   提供了当前vue项目的配置信息，包括依赖、支持的脚本。。。
+ 3、npm start启动流程
+	①npm start
+	dev-server.js
+	②加载index.html src/main.js
+	③启动根组件，根据路由数组，向根组件中插入路由地址为空时所对应的Hello.vue
+ 
+ 练习：默认加载list.vue /detail
+	 list.vue detail.vue,希望list中加载服务器端的商品列表(只显示标题)，点击列表项跳转到detail，同时将商品id发送给detail（接受的参数显示在p）
+
+	①在components创建list.vue detail.vue
+	②在list中发请求，拿数据，显示，指定跳转行为
+	③detail负责接收数据并显示
+ 
+ 实现在基于单文件组件系统中，调用第三方的资源文件，比如bootstrap.css/jQuery.js
+
+  ①把对应的文件拷贝到assets指定的文件夹css/js/img/fonts/....
+  ②找到src/main.js
+    import './asssets/css/bootstrap.css'
+
+
+
+
+
+

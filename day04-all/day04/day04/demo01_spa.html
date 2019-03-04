@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <!--1、引入对应的js文件-->
+    <script src="js/vue-router.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <!--2、指定盛放要加载的内容的容器-->
+    <router-view></router-view>
+</div>
+
+<script>
+    //3、创建业务所需要用到的组件类
+    var LoginCom = Vue.component('myLogin',{
+        template:`
+            <h1>这是登录页面</h1>
+        `
+    });
+    var MainCom = Vue.component('myMain',{
+        template:`
+            <h1>这是主页面</h1>
+        `
+    });
+
+    //4、配置路由数组(路由词典)
+    const myRoutes = [
+        {path:'',component:MainCom},
+        {path:'/login',component:LoginCom},
+        {path:'/main',component:MainCom}
+    ];
+    const myRouter = new VueRouter({
+        routes:myRoutes
+    });
+    new Vue({
+        router:myRouter,
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

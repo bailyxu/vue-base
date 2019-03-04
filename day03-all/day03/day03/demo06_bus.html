@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <xiong-da></xiong-da>
+    <xiong-er></xiong-er>
+</div>
+
+<script>
+    //创建一个bus，用来实现兄弟组件间的通信
+    var bus = new Vue();
+    //常见两个组件
+    Vue.component('xiongDa',{
+        created:function(){
+            //通过bus完成事件的绑定
+            bus.$on('toXiongDa',function(msg){
+                console.log("熊大收到了一条回复:"+msg);
+            })
+        },
+        methods:{
+            sendToXiongEr:function(){
+                bus.$emit('toXiongEr','光头强来了');
+            }
+        },
+        template:`
+            <div>
+                <h1>这是熊大</h1>
+                <button @click="sendToXiongEr">
+                    发送
+                </button>
+            </div>
+        `
+    })
+    Vue.component('xiongEr',{
+        created:function(){
+            //通过bus完成事件的绑定
+            bus.$on('toXiongEr',function(msg){
+                console.log('熊二已经接收到事件了:'+msg);
+                //触发toXiongDa
+                bus.$emit('toXiongDa','熊二已经收到')
+            })
+        },
+        template:`
+            <div>
+                <h1>这是熊二</h1>
+            </div>
+        `
+    })
+
+
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

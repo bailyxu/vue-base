@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <my-login></my-login>
+</div>
+
+<script>
+//    <input type="text"
+//    :placeholder="'请输入'+labelName">
+    Vue.component('myInput',{
+        props:['labelName','tips'],
+        template:`
+            <div>
+                <label>{{labelName}}</label>
+                <input type="text"
+                :placeholder="tips">
+            </div>
+        `
+    })
+
+    Vue.component('myButton',{
+        props:['btnName'],
+        methods:{
+            sendToLogin:function(){
+                //事件的触发，同时将值传递过去
+                this.$emit('myEvent',this.btnName+'成功!');
+            }
+        },
+        template:`
+            <button @click="sendToLogin">
+              {{btnName}}
+            </button>
+        `
+    })
+
+    Vue.component('myLogin',{
+        methods:{
+            rcvMsg:function(msg){
+                console.log(msg);
+            }
+        },
+        template:`
+            <div>
+                <my-input labelName="用户名" tips="请输入用户名">
+                </my-input>
+                <my-input labelName="密码" tips="请输入密码">
+                </my-input>
+                <my-button
+                @myEvent="rcvMsg" btnName="登录">
+                </my-button>
+                <my-button
+                @myEvent="rcvMsg" btnName="注册">
+                </my-button>
+            </div>
+        `
+    })
+
+
+
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

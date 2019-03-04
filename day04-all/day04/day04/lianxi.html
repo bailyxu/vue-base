@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+
+<div id="example">
+    <to-do-box></to-do-box>
+</div>
+
+<script>
+    var bus = new Vue();
+    //组件
+    Vue.component('toDoItem',{
+        props:['content','myIndex'],
+        methods:{
+            myDelete:function(){
+                this.$emit('deleteEvent',this.myIndex)
+            }
+        },
+        template:`
+         <li>
+            <button @click="myDelete">delete</button>
+            <span>{{content}}</span>
+         </li>
+        `
+    })
+
+    Vue.component('toDoList',{
+        data:function(){
+            return {
+                list:[]
+            }
+        },
+        created:function(){
+            bus.$on('addEvent',(msg)=>{
+                console.log("todolist收到todoinput传来的值是"+msg);
+                this.list.push(msg);
+            })
+        },
+        methods:{
+            handleDelete:function(msg){
+                console.log("todolist 接收到 todoitem传来的值:"+msg);
+                this.list.splice(msg,1);
+            }
+        },
+        template:`
+            <ul>
+                <to-do-item
+                 @deleteEvent="handleDelete"
+                 :content="tmp"
+                 :myIndex="index"
+                v-for="(tmp,index) in list"
+                 :key="index">
+                </to-do-item>
+            </ul>
+        `
+    })
+
+    Vue.component('toDoInput',{
+        data:function(){
+            return {msg:''}
+        },
+        methods:{
+            sendToList:function(){
+                bus.$emit('addEvent',
+                    this.msg);
+                this.msg = "";
+            }
+        },
+        template:`
+            <div>
+                <h1>待做事项列表</h1>
+                <input type="text"
+                v-model="msg"/>
+                <button @click="sendToList">
+                    add
+                </button>
+            </div>
+        `
+    })
+
+    Vue.component('toDoBox',{
+        template:`
+            <div>
+             <to-do-input></to-do-input>
+             <to-do-list></to-do-list>
+            </div>
+        `
+    })
+
+
+
+    new Vue({
+        el:'#example' ,
+        data:{msg:'hello world'}
+    });
+</script>
+
+</body>
+</html>

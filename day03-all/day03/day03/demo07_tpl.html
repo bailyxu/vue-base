@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <test></test>
+</div>
+<!--通过script指定组件的模板内容-->
+<script id='myTpl' type="text/x-template">
+    <div>
+        <h1> it is  a test </h1>
+        <p> it is a paragraph </p>
+    </div>
+</script>
+<script>
+    Vue.component('test',{
+        template:'#myTpl'
+    })
+
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS'
+        }
+    });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <!--<a href="http://www.tmooc.cn">达内</a>-->
+    <!--<a v-bind:href="myUrl">达内tmooc</a>-->
+    <!--<img src="img/1.jpg"/>-->
+    <!--<img :src="imgUrl" alt="">-->
+    <!--<img :src="'img/'+imgName" alt="">-->
+    <span v-bind:title="msg"></span>
+</div>
+
+<script>
+    new Vue({
+        el: '#example',
+        data: {
+//            imgUrl:'img/1.jpg',
+//            imgName:'1.jpg',
+//            myUrl:'http://www.tmooc.cn',
+//            msg: 'Hello VueJS'
+            msg:'this is my house'
+        }
+    });
+</script>
+
+</body>
+</html>

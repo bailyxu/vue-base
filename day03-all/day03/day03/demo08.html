@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+
+<div id="example">
+    <to-do-box></to-do-box>
+</div>
+
+<script>
+    var bus = new Vue();
+    //组件
+    Vue.component('toDoItem',{
+        template:`
+         <li>
+            <button>delete</button>
+            <span>健身</span>
+         </li>
+        `
+    })
+
+    Vue.component('toDoList',{
+        created:function(){
+            bus.$on('addEvent',function(msg){
+                console.log("todolist收到todoinput传来的值是"+msg);
+            })
+        },
+        template:`
+            <ul>
+                <to-do-item></to-do-item>
+                <to-do-item></to-do-item>
+            </ul>
+        `
+    })
+
+    Vue.component('toDoInput',{
+        data:function(){
+            return {msg:''}
+        },
+        methods:{
+            sendToList:function(){
+                bus.$emit('addEvent',
+                    this.msg);
+            }
+        },
+        template:`
+            <div>
+                <h1>待做事项列表</h1>
+                <input type="text"
+                v-model="msg"/>
+                <button @click="sendToList">
+                    add
+                </button>
+            </div>
+        `
+    })
+
+    Vue.component('toDoBox',{
+        template:`
+            <div>
+             <to-do-input></to-do-input>
+             <to-do-list></to-do-list>
+            </div>
+        `
+    })
+
+
+
+    new Vue({
+        el:'#example' ,
+        data:{msg:'hello world'}
+    });
+</script>
+
+</body>
+</html>

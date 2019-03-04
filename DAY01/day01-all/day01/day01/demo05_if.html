@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script src="js/vue.js"></script>
+    <title>Title</title>
+</head>
+<body>
+<div id="example">
+    <p>{{msg}}</p>
+    <h1 v-if="!isMember">这是一个广告</h1>
+</div>
+
+<script>
+    new Vue({
+        el: '#example',
+        data: {
+            msg: 'Hello VueJS',
+            isMember:false
+        }
+    });
+</script>
+
+</body>
+</html>
